@@ -9,9 +9,6 @@ Briefly explain:
 - Why it exists (problem it solves or purpose)
 - Who it's for (users, developers, researchers, etc.)
 
-Example:  
-> This project is an autonomous racecar control system that uses LiDAR and deep learning to predict steering and throttle outputs in real-time. It was built as part of the KU F1Tenth Club initiative to advance autonomous vehicle research.
-
 ---
 
 ## 🧠 Features
