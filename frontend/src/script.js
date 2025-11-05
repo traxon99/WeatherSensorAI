@@ -32,9 +32,9 @@ function GetLocation() {
 async function UpdateWeatherInfo() {
   try {
     const { lat, lng } = await GetLocation();
-
+    console.log(lat,lng);
     // Request daily forecast for next 7 days (timezone=auto keeps dates aligned to user)
-    const open_meteo_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&timezone=auto`;
+    const open_meteo_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`;
 
     const response = await fetch(open_meteo_url);
     const data = await response.json();
@@ -61,9 +61,9 @@ async function UpdateWeatherInfo() {
     const todayName = todayDate.toLocaleDateString(undefined, { weekday: 'long' });
     today_card.innerHTML = `
       <h2>${todayName} (${todayDate.toLocaleDateString()})</h2>
-      <p>🌡️ High: ${tempMax[0].toFixed(1)}°C | Low: ${tempMin[0].toFixed(1)}°C</p>
-      <p>💧 Rain: ${rain[0]} mm</p>
-      <p>🌬️ Wind: ${wind[0]} km/h</p>
+      <p>🌡️ High: ${tempMax[0].toFixed(1)}°F | Low: ${tempMin[0].toFixed(1)}°F</p>
+      <p>💧 Rain: ${rain[0]} inch</p>
+      <p>🌬️ Wind: ${wind[0]} mph</p>
     `;
 
     // Create a card for every day returned by the API (this avoids skipping Monday)
@@ -76,8 +76,8 @@ async function UpdateWeatherInfo() {
       card.innerHTML = `
         <h3>${weekday}</h3>
         <p>${date.toLocaleDateString()}</p>
-        <p>🌡️ ${tempMax[i].toFixed(1)}°C / ${tempMin[i].toFixed(1)}°C</p>
-        <p>💧 ${rain[i]} mm | 🌬️ ${wind[i]} km/h</p>
+        <p>🌡️ ${tempMax[i].toFixed(1)}°F / ${tempMin[i].toFixed(1)}°F</p>
+        <p>💧 ${rain[i]} in. | 🌬️ ${wind[i]} mph</p>
       `;
       day_cards.appendChild(card);
     }
