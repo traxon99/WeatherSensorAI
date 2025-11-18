@@ -42,8 +42,8 @@ async function UpdateWeatherInfo() {
     const day_cards = document.getElementById('day-cards');
     const today_card = document.getElementById('today-card');
 
-    day_cards.innerHTML = '';
-    today_card.innerHTML = '';
+  day_cards.innerHTML = '';
+  today_card.innerHTML = '';
 
     const days = data.daily.time || [];
     const tempMax = data.daily.temperature_2m_max || [];
@@ -53,7 +53,7 @@ async function UpdateWeatherInfo() {
 
     if (days.length === 0) {
       today_card.innerHTML = '<p>No daily data available.</p>';
-      return;
+      return { days: [], tempMax: [], tempMin: [], rain: [], wind: [] };
     }
 
     // Build today's card using the first entry (days[0])
@@ -81,7 +81,14 @@ async function UpdateWeatherInfo() {
       `;
       day_cards.appendChild(card);
     }
-    return `${days, tempMax, tempMin, rain, wind}`;
+    // Return structured weather data for consumers (e.g., AI summaries)
+    return {
+      days,
+      tempMax,
+      tempMin,
+      rain,
+      wind
+    };
 
   } catch (error) {
     console.error('Error loading weather data:', error);
@@ -100,8 +107,8 @@ async function GetGeminiResponse(type, input) {
 
         switch (type) {
             case "summary":
-                full_prompt = prompts.summary_prompt;
-                console.log("full prompt:\n" + prompts.summary_prompt);
+                full_prompt = prompts.summary_prompt + input;
+                console.log("full prompt:\n" + full_prompt);
                 break;
             case "chat":
                 full_prompt = prompts.chat_prompt + input;
@@ -113,26 +120,60 @@ async function GetGeminiResponse(type, input) {
         return `<p>${response}</p>`;
     } catch(error) {
         console.error(error);
-
+        return `<p>Error: ${error.message}</p>`;
     };
 }; 
 
 async function QueryGemini(prompt) {
-    // try {
+  try {
+    const resp = await fetch('http://localhost:5173/api/gemini', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
 
-    //     return response.text
-    // } catch(error) {
-    //     console.error(error);
-    // }
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.error || 'Failed to get Gemini response');
+    }
+
+    const body = await resp.json();
+    return body.response || '';
+  } catch (error) {
+    console.error('QueryGemini error:', error);
+    return `Error querying Gemini: ${error.message}`;
+  }
 }
 
 
 async function testing(){
 
-    GetGeminiResponse("chat", "This is a test input (chat)");
-    UpdateWeatherInfo();
+  // Load weather, then request AI summary using the returned weather data
+  const weather = await UpdateWeatherInfo();
 
-    GetGeminiResponse("summary", "This is a test input (summary)");
+  // Show a mocked chat and summary in the AI box while waiting
+  const box = document.getElementById('gemini-text-box');
+  if (box) box.textContent = 'Generating AI summary...';
+
+  // Example chat (fire-and-forget) — display result when it returns
+  GetGeminiResponse('chat', 'This is a test input (chat)').then(html => {
+    // For demo, append chat response below the summary
+    // Do not overwrite summary if it's already present
+    const chatDiv = document.createElement('div');
+    chatDiv.style.marginTop = '8px';
+    chatDiv.innerHTML = html || '';
+    const container = document.getElementById('gemini-response');
+    if (container) container.appendChild(chatDiv);
+  });
+
+  // Summary should include weather info. Build a simple text representation
+  const weatherText = weather && weather.days ?
+    weather.days.map((d, i) => `${d}: High ${weather.tempMax[i]}°C Low ${weather.tempMin[i]}°C, Rain ${weather.rain[i]}mm, Wind ${weather.wind[i]} km/h`).join('\n')
+    : 'No weather data available.';
+
+  const summaryHtml = await GetGeminiResponse('summary', weatherText);
+  const geminiBox = document.getElementById('gemini-text-box');
+  if (geminiBox) geminiBox.innerHTML = summaryHtml;
 }
 // addEventListener("DOMContentLoaded", testing);
 testing();
