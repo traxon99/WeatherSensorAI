@@ -9,7 +9,11 @@ clearBtn.addEventListener('click', () => {
   zipcodeInput.value = '';
 });
 
-// Current location button
+
+// ===============================
+// Current location button (GPS)
+//================================
+
 currentlocationbtn.addEventListener('click', () => {
   loader.style.display = "block"; // show spinner
   navigator.geolocation.getCurrentPosition(gotlocation, failedtogetlocation);
@@ -18,9 +22,14 @@ currentlocationbtn.addEventListener('click', () => {
 function gotlocation(position){
   loader.style.display = "none"; // hide spinner immediately
   const lat = position.coords.latitude;
-  const longi = position.coords.longitude;
-  alert(`Location detected:\nLatitude: ${lat}\nLongitude: ${longi}`);
-  console.log("Latitude:", lat, "Longitude:", longi);
+  const lng = position.coords.longitude;
+
+  // For GPS, we might not have city/state; we are to make default/empty
+  const city = "";
+  const state = "";
+
+  // Redirect to the index.html with the coordinates and empty city/state
+  window.location.href = `index.html?lat=${lat}&lng=${lng}&city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}`;
 }
 
 function failedtogetlocation(error){
@@ -29,7 +38,11 @@ function failedtogetlocation(error){
   console.error('Error getting location:', error);
 }
 
+//===============================================
+// ZIP CODE 
 // ZIP code search using free Zippopotam.us API
+//===============================================
+
 searchBtn.addEventListener('click', async () => {
   const zip = zipcodeInput.value.trim();
   if(!zip.match(/^\d{5}$/)){
@@ -48,9 +61,14 @@ searchBtn.addEventListener('click', async () => {
     loader.style.display = "none"; // hide spinner immediately
 
     const place = data.places[0];
-    alert(`ZIP found: ${place['place name']}, ${place['state abbreviation']}\nLatitude: ${place['latitude']}\nLongitude: ${place['longitude']}`);
-    console.log(data);
+    const lat = place['latitude'];
+    const lng = place['longitude'];
+    const city = place['place name'];
+    const state = place['state abbreviation'];
 
+    // Redirect with coordinates AND city/state
+    window.location.href = `index.html?lat=${lat}&lng=${lng}&city=${encodeURIComponent(city)}&state=${encodeURIComponent(state)}`;
+    
   } catch(err){
     loader.style.display = "none"; // hide spinner on error
     alert("Error fetching location: " + err.message);

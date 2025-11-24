@@ -9,30 +9,20 @@ TODO:
 */
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 
-
-function GetLocation() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject("Geolocation not supported.");
-    } else {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => reject(error)
-      );
-    }
-  });
-}
-
-
-async function UpdateWeatherInfo() {
+async function UpdateWeatherInfo(lat, lng, city ="", state ="") {
   try {
-    const { lat, lng } = await GetLocation();
-    console.log(lat,lng);
+    console.log(lat, lng, city, state);
+
+    // show city/state at the top of the weather 
+    const weatherTitle = document.getElementById('weather-details-h2');
+    if (weatherTitle) {
+      if (city.trim() === "" && state.trim() === ""){
+        weatherTitle.textContent = `Weather for your loaction`;
+      }else{
+        weatherTitle.textContent = `Weather for ${city}${state ? ", " + state : ""}`;
+      }
+    }
+
     // Request daily forecast for next 7 days (timezone=auto keeps dates aligned to user)
     const open_meteo_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`;
 
@@ -89,6 +79,25 @@ async function UpdateWeatherInfo() {
   }
 }
 
+//====================================================
+// On page load, read lat/lng and city/state from URL
+//====================================================
+
+document.addEventListener("DOMContentLoaded",() =>{
+  const params = new URLSearchParams(window.location.search);
+  const lat = params.get("lat");
+  const lng = params.get("lng");
+  const city = params.get("city") || "";
+  const state = params.get("state") || "";
+
+  if (lat && lng){
+     UpdateWeatherInfo(lat, lng, city, state);
+  }else{
+    alert("No coordinates provided!");
+  }
+});
+
+
 async function GetGeminiResponse(type, input) {
     // merge prompts and sent to Gemini, then return html with gemini response
     try {
@@ -130,7 +139,7 @@ async function QueryGemini(prompt) {
 async function testing(){
 
     GetGeminiResponse("chat", "This is a test input (chat)");
-    UpdateWeatherInfo();
+    //UpdateWeatherInfo();
 
     GetGeminiResponse("summary", "This is a test input (summary)");
 }
