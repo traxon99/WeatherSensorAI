@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Body Styling === */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #222;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* === Main Title === */
+h1 {
+  font-size: 2.5rem;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+#weather-details {
+  display: flex;
+  flex-direction:column;
+  align-items: left;
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 0 30px 0
+}
+
+#weather-details h2 {
+  color: #0078d7;
+  margin-bottom: 20px;
+}
+
+/* Grid layout for day cards */
+#weather-details .day-cards,
+
+/* Make the day cards display in a row */
+#day-cards {
+  display: flex;
+  flex-wrap: nowrap; /* keeps all cards in one row */
+  /* justify-content: space-between; evenly space cards */
+  align-items: right;
+  gap: 5px; /* spacing between cards */
+  width: 100%;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+/* Ensure day cards have a fixed width so they fit in one row */
+.day-card {
+  background: #f5f9ff;
+  border: 1px solid #a3c7ff;
+  border-radius: 10px;
+  padding: 10px;
+  min-height: auto;
+  min-width: 200px;
+  text-align: center;
+  flex: 1; /* allows cards to expand evenly */
+  transition: transform 0.2s ease;
+}
+
+.day-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.day-card h3 {
+  color: #0078d7;
+  font-size: 1rem;
+}
+
+
+.today-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.today-card h3 {
+  color: #0078d7;
+  font-size: 1rem;
+}
+
+/* Ensure day cards have a fixed width so they fit in one row */
+.today-card {
+  background: #f5f9ff;
+  border: 1px solid #a3c7ff;
+  border-radius: 10px;
+  padding: 10px;
+  height: 100px;
+  min-width: 200px;
+  text-align: center;
+  flex: 1; /* allows cards to expand evenly */
+  transition: transform 0.2s ease;
+}
+
+.today-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.today-card h3 {
+  color: #0078d7;
+  font-size: 1rem;
+}
+
+
+.today-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.today-card h3 {
+  color: #0078d7;
+  font-size: 1rem;
+}
+
+
+
+/* === AI Summary Section === */
+#ai-summary-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 20px 30px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+#ai-summary-container h2 {
+  color: #0078d7;
+  margin-bottom: 15px;
+}
+
+#gemini-response {
+  background-color: #f5f9ff;
+  border: 2px dashed #a3c7ff;
+  border-radius: 12px;
+  padding: 15px;
+  min-height: 100px;
+  text-align: left;
+  font-size: 1rem;
+  color: #333;
+  white-space: pre-wrap;
+}
+
+/* === Responsive Design === */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  #weather-details,
+  #ai-summary-container {
+    width: 100%;
+    padding: 15px 20px;
+  }
+}
+
+
+

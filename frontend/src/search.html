@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="WSAI.png" type="image/x-icon">
+  <link rel="stylesheet" href="styles2.css">
+  <title>WeatherSensor AI</title>
+</head>
+<body>
+
+  <!-- Video background -->
+  <video class="video-bg" autoplay muted loop>
+    <source src="location.mp4" type="video/mp4">
+  </video>
+
+  <!-- Top black bar -->
+  <div class="topbar">
+    <span>We deliver real time weather support</span>
+    <a href="#">Help</a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1>WeatherSensor AI</h1>
+  </header>
+
+  <!-- Main section -->
+  <main class="welcome-section">
+    <div class="welcome-box">
+      <h2>Search Location</h2>
+
+      <!-- Current location button -->
+      <button class="btn" id="current-location-btn">Access weather for the current location</button>
+      <div id="loader" class="loader"></div>
+
+      <!-- ZIP code input and search/clear buttons -->
+      <div style="margin-top: 20px;">
+        <input type="text" id="zipcode" class="zipcode-input" placeholder="Enter ZIP code">
+        <button class="btn" id="zipcode-search-btn">Search</button>
+        <button class="btn btn-clear" id="zipcode-clear-btn">Clear</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script2.js"></script>
+</body>
+</html>
