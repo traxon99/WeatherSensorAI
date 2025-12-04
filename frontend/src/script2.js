@@ -1,3 +1,28 @@
+/* 
+Project: WeatherSensor AI
+File: script2.js
+Description: Handles user location inputs for WeatherSensor AI. 
+             Supports GPS-based location detection, ZIP code lookup 
+             via Zippopotam.us API, and UI interactions for initiating 
+             weather data retrieval.
+Inputs: 
+    - User click events for GPS and ZIP code lookup
+    - ZIP code text input
+    - Geolocation API
+Outputs: 
+    - Redirects to index.html with latitude, longitude, city, and state parameters
+Outside sources: Zippopotam.us (ZIP code geolocation API)
+Features included in this script:
+    - Loader/spinner
+    - Clear ZIP input functionality
+    - GPS-based location access with error handling
+    - ZIP code lookup with validation and API fetch
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 19, 2025
+Originality: Original with the aid of generative AI
+*/
+
+
 const loader = document.getElementById("loader");
 const currentlocationbtn = document.getElementById('current-location-btn');
 const zipcodeInput = document.getElementById('zipcode');
@@ -60,7 +85,10 @@ searchBtn.addEventListener('click', async () => {
     const data = await res.json();
     loader.style.display = "none"; // hide spinner immediately
 
+    //  Zippopotam.us returns an array of locations and we will take the first
     const place = data.places[0];
+
+    // Extract key details
     const lat = place['latitude'];
     const lng = place['longitude'];
     const city = place['place name'];

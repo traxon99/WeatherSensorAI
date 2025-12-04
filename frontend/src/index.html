@@ -1,3 +1,18 @@
+<!--
+Project: WeatherSensor AI
+File: index.html
+Description: Final landing page for WeatherSensor AI, displaying real-time weather details and AI-generated summaries. 
+             Provides a user interface for daily and weekly weather information, enhanced with responsive design. 
+Inputs: User location (for weather), linked CSS (styles.css), JavaScript module (script.js)
+Outputs: Web interface showing current and weekly weather, along with AI-generated weather summary
+Features included on this page: Current weather card for user's location
+                              - Weekly weather forecast displayed in cards
+                              - AI summary section for automated weather insights
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 04, 2025
+Originality: Original with generative AI assistance
+-->
+
 <!DOCTYPE html>
 
 <html>
@@ -7,24 +22,35 @@
         <title>WeatherSensorAI</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Link to external CSS stylesheet -->
         <link rel="stylesheet" href="styles.css">
     </head>
 
     
     <body>
+            <!-- Main heading for the page -->
         <h1>
             WeatherSensorAI
         </h1>
+
+        <!-- Weather details section -->
         <div id="weather-details"> 
+
+            <!-- Section title -->
             <div id="weather-details-title">
                 <h2 id="weather-details-h2">Weather for your location</h2>
             </div>
             <div id="today-card"; class="today-card">
                 <h3></h3>
             </div>
+
+            <!-- Weekly forecast section -->
             <div>
                 <h2>Weekly</h2>
             </div>
+
+            <!-- Cards for each day of the week -->
             <div id="day-cards">
                 <div class="day-card">
                     <h3>Sunday</h3>
@@ -50,6 +76,7 @@
             </div>
         </div>
         
+        <!-- AI-generated weather summary section -->
         <div id="ai-summary-container">
             <h2>
                 AI Summary
@@ -59,7 +86,7 @@
             </div>
         </div>
     
-        
+        <!-- Link to main JavaScript module -->
         <script type="module" src="script.js"></script>
     </body>
 </html>

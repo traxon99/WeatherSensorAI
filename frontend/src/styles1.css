@@ -1,3 +1,24 @@
+/*
+Project: WeatherSensor AI
+File: style1.css
+Description: Stylesheet for WeatherSensor AI landing page. Defines the visual layout, typography, color scheme, animations, and responsive behavior for the webpage.
+Inputs: Linked HTML elements (header, navigation, sections, buttons, grids), media assets (video background, icons)
+Outputs: Styled webpage interface with interactive features and responsive design
+Outside sources: GeeksforGeeks (HTML/CSS techniques), YouTube tutorials
+Features implemented:
+    - Full-screen video background with layering behind content
+    - Top navigation bar with branding and links
+    - Fade-in animation for dynamic content appearance
+    - Welcome section with central CTA (Call To Action)
+    - Features showcase grid with hover effects
+    - Team section with member profiles and hover transitions
+    - Responsive layout adjustments for tablets and mobile devices
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 17, 2025
+Originality: Original CSS with generative AI assistance
+*/
+
+
 * {
   margin: 0;
   padding: 0;

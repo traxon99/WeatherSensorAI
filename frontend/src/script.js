@@ -1,12 +1,30 @@
-
 /*
-TODO:
-    - Update how we get weather to work with the open weather API that Riley found
-    - Get basic Gemini response working
-    - Add chat box
-    NOTE: When adding an api please DO NOT PUT THE API KEY IN THE JAVASCRIPT CODE.
-    make a separate file and pull the api key.
+Project: WeatherSensor AI
+File: script.js
+Description: Implements dynamic weather fetching and AI-powered summary/chat integration for WeatherSensor AI. 
+             Provides functions to update weather information using Open-Meteo API and interact with Gemini AI for summaries 
+             and chat responses. Handles rendering of daily weather cards and today's weather in the UI.
+Features: Fetches 7-day weather forecast based on latitude and longitude
+        - Displays current day weather and forecast cards
+        - Updates page header with city/state or location
+        - Provides functions to get AI-generated summaries or chat responses via Gemini API
+        - Handles DOM updates for weather and AI outputs
+Inputs: User location (lat/lng) via URL query parameters from the scripts2.js
+      - City and state names via URL query parameters
+      - Prompts from 'prompts.json' for AI queries
+
+Outputs: Updates DOM elements with weather data
+        - Returns Gemini AI response as HTML paragraphs
+
+Outside sources: Open-Meteo API (for weather data)
+               - prompts.json (for AI prompts)
+               - Environment variable `GEMINI_API_KEY` for API key (do not hardcode)
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 04, 2025
+Originality: Original with the aid of generative AI
+
 */
+
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 
 async function UpdateWeatherInfo(lat, lng, city ="", state ="") {
