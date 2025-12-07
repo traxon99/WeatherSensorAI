@@ -1,4 +1,0 @@
-{
-    "chat_prompt":"You are a weather expert AI. Respond to each prompt with the understanding of weather context and the user's goals.",
-    "summary_prompt":"You are a weather expert. Summarize the following weather information and add important weather-related warnings and suggestions. User context: "
-}
