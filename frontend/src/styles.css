@@ -1,3 +1,19 @@
+/* 
+Project: WeatherSensor AI
+File: styles.css
+Description: Core stylesheet for WeatherSensor AI interface components. 
+             Provides layout styling, responsive structure, visual formatting 
+             for weather details, AI summaries, and interactive card elements.
+Inputs: HTML elements from the WeatherSensor AI frontend
+Outputs: Styled UI with responsive behavior
+Outside Source: GeeksforGeeks (CSS examples), YouTube tutorials
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 03, 2025
+Originality: Original with the aid of generative AI
+*/
+
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;

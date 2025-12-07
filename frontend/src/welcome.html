@@ -1,24 +1,45 @@
+<!--
+Project: WeatherSensor AI
+File: welcome.html
+Description: Implements the main landing page for WeatherSensor AI. Provides UI layout, responsive design structure, and navigation for accessing real-time weather features, AI summaries, and chat tools.
+Inputs: User navigation, linked CSS styles, media assets (video, icons)
+Outputs: Webpage interface with interactive section
+Outside source: Geeksforgeeks (HTML/CSS) and Youtube videos
+Features included on this page:
+    - Video background for visual appeal
+    - Top navigation bar with quick links
+    - Welcome section with CTA button
+    - Features showcase grid
+    - Team introduction section
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 19, 2025
+Originality: Original with the aid of generative AI
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Website icon -->
   <link rel="icon" href="WSAI.png" type="image/x-icon">
-  <link rel="stylesheet" href="styles1.css"> <!-- Link to CSS -->
+
+  <!-- Link to CSS -->
+  <link rel="stylesheet" href="styles1.css"> 
   <title>WeatherSensor AI</title>
 </head>
 <body>
 
-  <!-- Video background -->
+  <!-- Video background providing a dynamic welcome experience -->
   <video class="video-bg" autoplay muted loop>
     <source src="nature.mp4" type="video/mp4">
-    Your browser does not support the video tag.
   </video>
 
   <!-- Top black bar -->
   <div class="topbar">
     <span>We deliver real time weather support</span>
-    <a href="#">Help</a>
+    <a href="#FS">Our features</a>
   </div>
 
   <!-- Header -->
@@ -29,16 +50,22 @@
   <!-- Main section -->
   <main class="welcome-section">
     <div class="welcome-box">
-      <h2>WELCOME</h2>
+      <h2 class="fade-in">WELCOME</h2>
       <p>Welcome to WeatherSensor AI — your smart companion for real-time weather and friendly forecasts. Let's make every day a little brighter!</p>
+
+      <!-- Call-to-action button leading to search page -->
       <a href="search.html" class="btn">Start Now</a>
     </div>
   </main>
 
   <!-- Features Section -->
-  <section class="features-section">
-    <h2>Our Features</h2>
+  <section class="features-section" id="FS">
+    <h2 class="fade-in">Our Features</h2>
+
+    <!-- Grid layout for feature cards -->
     <div class="features-grid">
+
+    <!-- Individual feature cards -->
       <div class="feature-card">
         <div class="feature-icon">🌤️</div>
         <h3>Real-Time Weather Data</h3>
@@ -74,7 +101,9 @@
 
   <!-- Meet the Team Section -->
   <section class="team-section">
-    <h2>Meet the Team</h2>
+    <h2 class="fade-in"> Meet the Team</h2>
+
+    <!-- Grid layout for team members -->
     <div class="team-grid">
       <div class="team-member">
         <div class="team-photo">CC</div>

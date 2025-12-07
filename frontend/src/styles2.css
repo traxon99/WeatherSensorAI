@@ -1,3 +1,24 @@
+/*
+Project: WeatherSensor AI
+File: style2.css
+Description: Implements styling for the search page of WeatherSensor AI. Provides layout, responsive design, and visual aesthetics including video background, overlay, navigation bar, welcome section, buttons, loader, and input fields.  
+Inputs: Linked HTML elements, media assets (video), user interactions (buttons, input fields)  
+Outputs: Styled, interactive, and responsive webpage interface  
+Outside source: Geeksforgeeks (HTML/CSS) and YouTube tutorials for responsive design and video backgrounds  
+Features included in this stylesheet:
+    - Global resets and box-sizing
+    - Full-screen video background with dark overlay
+    - Top navigation bar with branding and links
+    - Header and welcome section styling with central CTA
+    - Buttons with hover effects (primary and clear)
+    - ZIP code input field with responsive layout
+    - Loader spinner with animation
+    - Responsive design adjustments for tablets and mobile devices
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 17, 2025
+Originality: Original with the aid of generative AI
+*/
+
 * {
   margin: 0;
   padding: 0;

@@ -1,38 +1,46 @@
-
 /*
-TODO:
-    - Update how we get weather to work with the open weather API that Riley found
-    - Get basic Gemini response working
-    - Add chat box
-    NOTE: When adding an api please DO NOT PUT THE API KEY IN THE JAVASCRIPT CODE.
-    make a separate file and pull the api key.
+Project: WeatherSensor AI
+File: script.js
+Description: Implements dynamic weather fetching and AI-powered summary/chat integration for WeatherSensor AI. 
+             Provides functions to update weather information using Open-Meteo API and interact with Gemini AI for summaries 
+             and chat responses. Handles rendering of daily weather cards and today's weather in the UI.
+Features: Fetches 7-day weather forecast based on latitude and longitude
+        - Displays current day weather and forecast cards
+        - Updates page header with city/state or location
+        - Provides functions to get AI-generated summaries or chat responses via Gemini API
+        - Handles DOM updates for weather and AI outputs
+Inputs: User location (lat/lng) via URL query parameters from the scripts2.js
+      - City and state names via URL query parameters
+      - Prompts from 'prompts.json' for AI queries
+
+Outputs: Updates DOM elements with weather data
+        - Returns Gemini AI response as HTML paragraphs
+
+Outside sources: Open-Meteo API (for weather data)
+               - prompts.json (for AI prompts)
+               - Environment variable `GEMINI_API_KEY` for API key (do not hardcode)
+Authors: Riley England, Jackson Yanek, Evans Chigweshe, Manu Redd, Cole Cooper
+Creation: November 04, 2025
+Originality: Original with the aid of generative AI
+
 */
+
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 
-
-function GetLocation() {
-  return new Promise((resolve, reject) => {
-    if (!navigator.geolocation) {
-      reject("Geolocation not supported.");
-    } else {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          resolve({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => reject(error)
-      );
-    }
-  });
-}
-
-
-async function UpdateWeatherInfo() {
+async function UpdateWeatherInfo(lat, lng, city ="", state ="") {
   try {
-    const { lat, lng } = await GetLocation();
-    console.log(lat,lng);
+    console.log(lat, lng, city, state);
+
+    // show city/state at the top of the weather 
+    const weatherTitle = document.getElementById('weather-details-h2');
+    if (weatherTitle) {
+      if (city.trim() === "" && state.trim() === ""){
+        weatherTitle.textContent = `Weather for your loaction`;
+      }else{
+        weatherTitle.textContent = `Weather for ${city}${state ? ", " + state : ""}`;
+      }
+    }
+
     // Request daily forecast for next 7 days (timezone=auto keeps dates aligned to user)
     const open_meteo_url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`;
 
@@ -89,6 +97,25 @@ async function UpdateWeatherInfo() {
   }
 }
 
+//====================================================
+// On page load, read lat/lng and city/state from URL
+//====================================================
+
+document.addEventListener("DOMContentLoaded",() =>{
+  const params = new URLSearchParams(window.location.search);
+  const lat = params.get("lat");
+  const lng = params.get("lng");
+  const city = params.get("city") || "";
+  const state = params.get("state") || "";
+
+  if (lat && lng){
+     UpdateWeatherInfo(lat, lng, city, state);
+  }else{
+    alert("No coordinates provided!");
+  }
+});
+
+
 async function GetGeminiResponse(type, input) {
     // merge prompts and sent to Gemini, then return html with gemini response
     try {
@@ -130,7 +157,7 @@ async function QueryGemini(prompt) {
 async function testing(){
 
     GetGeminiResponse("chat", "This is a test input (chat)");
-    UpdateWeatherInfo();
+    //UpdateWeatherInfo();
 
     GetGeminiResponse("summary", "This is a test input (summary)");
 }
