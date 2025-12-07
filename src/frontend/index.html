@@ -1,39 +1,121 @@
 <!DOCTYPE html>
+<!--
+WeatherSensorAI
+Authors: Manu Redd, Riley England, Jackson Yanek, Evans Chigweshe
+Course/Project: EECS 581 Project 3
+Source Used: Generative AI (ChatGPT, Claude), Documentation (HTML5, Marked.js, DOMPurify), StackOverflow
+Date: 12-07-2025
+
+File Overview and Purpose:
+This file defines the HTML structure for the WeatherSensorAI web application. It creates the layout for 
+displaying weather information, location controls, AI-generated summaries, and an interactive chat interface. 
+The page includes external libraries for markdown rendering (Marked.js) and HTML sanitization (DOMPurify).
+
+File Architecture:
+- <head> Section:
+  - Meta tags for charset and viewport configuration
+  - Title: "WeatherSensorAI"
+  - External stylesheet: styles.css
+  - External libraries: Marked.js (markdown parser), DOMPurify (HTML sanitizer)
+
+- <body> Structure:
+  - <h1>: Main title "WeatherSensorAI"
+  - #location-controls: Location input section
+    - #zip-input: Text input for ZIP code entry
+    - #zip-lookup: Button to trigger ZIP code lookup
+    - #use-location: Button to use device geolocation
+    - #location-label: Display for current location name
+  
+  - #weather-details: Weather display container
+    - #weather-details-title: Section title
+    - #today-card: Current day weather card
+    - #day-cards: Container for 7-day forecast cards (7 .day-card elements)
+  
+  - #ai-summary-container: AI features section
+    - .ai-left: AI summary display
+      - #gemini-response: Container for AI-generated weather summary
+      - #gemini-text-box: Text content area
+    - .ai-right: Chat interface
+      - #chat-container: Chat wrapper
+      - #chat-history: Message history display
+      - #chat-controls: User input controls
+        - #chat-input: Textarea for user messages
+        - #chat-send: Send button
+  
+  - <script>: Main JavaScript module (script.js)
+-->
 
 <html>
     <head>
+        <!-- Character encoding: UTF-8 for international character support -->
         <meta charset="utf-8">
+        
+        <!-- IE compatibility: Use latest rendering engine -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        
+        <!-- Page title shown in browser tab -->
         <title>WeatherSensorAI</title>
+        
+        <!-- Meta description for SEO (currently empty) -->
         <meta name="description" content="">
+        
+        <!-- Viewport settings for responsive design on mobile devices -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Link to external CSS stylesheet -->
         <link rel="stylesheet" href="styles.css">
-        <!-- Marked (markdown -> HTML) and DOMPurify (sanitize) -->
+        
+        <!-- External JavaScript libraries loaded from CDN -->
+        <!-- Marked.js: Converts markdown syntax to HTML for rich text formatting -->
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <!-- DOMPurify: Sanitizes HTML to prevent XSS attacks from AI-generated content -->
         <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
     </head>
 
     
     <body>
+        <!-- Main application title -->
         <h1>
             WeatherSensorAI
         </h1>
+        
+        <!-- Location Controls Section -->
+        <!-- Allows users to enter ZIP code or use device location -->
         <div id="location-controls" style="margin-bottom:18px; width:100%; max-width:1100px; display:flex; gap:8px; align-items:center; justify-content:center;">
+            <!-- ZIP code input field -->
             <input id="zip-input" type="text" placeholder="Enter US ZIP code (or leave blank for location)" style="padding:10px; border-radius:8px; border:1px solid #dbeafe; width:280px;">
+            
+            <!-- Button to trigger ZIP code lookup -->
             <button id="zip-lookup" style="padding:10px 14px; border-radius:8px; border:none; background:#0078d7; color:white; cursor:pointer;">Lookup</button>
+            
+            <!-- Button to use device's geolocation -->
             <button id="use-location" style="padding:10px 14px; border-radius:8px; border:none; background:#0064c8; color:white; cursor:pointer;">Use My Location</button>
+            
+            <!-- Label to display current location name -->
             <div id="location-label" style="margin-left:12px; color:white; font-weight:600;"></div>
         </div>
+        
+        <!-- Weather Details Section -->
+        <!-- Contains today's weather card and 7-day forecast -->
         <div id="weather-details"> 
+            <!-- Section title -->
             <div id="weather-details-title">
-                <h2 id="weather-details-h2">Weather for your location</h2>
+                <h2 id="weather-details-h2">Weather Today</h2>
             </div>
+            
+            <!-- Today's weather card (populated by JavaScript) -->
             <div id="today-card"; class="today-card">
                 <h3></h3>
             </div>
+            
+            <!-- Weekly forecast title -->
             <div>
                 <h2>Weekly</h2>
             </div>
+            
+            <!-- Container for 7-day forecast cards -->
+            <!-- Individual day cards are dynamically generated by JavaScript -->
+            <!-- These placeholder cards show the layout but are replaced at runtime -->
             <div id="day-cards">
                 <div class="day-card">
                     <h3>Sunday</h3>
@@ -59,20 +141,33 @@
             </div>
         </div>
         
+        <!-- AI Summary and Chat Section -->
+        <!-- Two-column layout: AI summary on left, chat interface on right -->
         <div id="ai-summary-container">
+            <!-- Left column: AI-generated weather summary -->
             <div class="ai-left">
                 <h2>AI Summary</h2>
+                <!-- Container for AI response with styled background -->
                 <div id="gemini-response">
+                    <!-- Text box where AI summary is rendered -->
                     <p id="gemini-text-box"></p>
                 </div>
             </div>
 
+            <!-- Right column: Interactive chat interface -->
             <div class="ai-right">
                 <h2 style="text-align:left; margin-bottom:8px;">Chat</h2>
                 <div id="chat-container">
+                    <!-- Chat history container - displays message bubbles -->
+                    <!-- Hidden when empty via CSS :empty selector -->
                     <div id="chat-history" class="chat-history"></div>
+                    
+                    <!-- Chat input controls -->
                     <div id="chat-controls" class="chat-controls">
+                        <!-- Textarea for user to type messages -->
                         <textarea id="chat-input" rows="2" placeholder="Ask about the weather..."></textarea>
+                        
+                        <!-- Send button to submit chat message -->
                         <button id="chat-send">Send</button>
                     </div>
                 </div>
@@ -80,6 +175,8 @@
         </div>
     
         
+        <!-- Main JavaScript module - handles all application logic -->
+        <!-- type="module" enables ES6 module features -->
         <script type="module" src="script.js"></script>
     </body>
 </html>
