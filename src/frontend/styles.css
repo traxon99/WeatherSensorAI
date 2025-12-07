@@ -135,13 +135,25 @@ h1 {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   padding: 20px 30px;
   width: 100%;
-  max-width: 600px;
-  text-align: center;
+  max-width: 1100px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
 #ai-summary-container h2 {
   color: #0078d7;
   margin-bottom: 15px;
+  text-align: left;
+}
+
+.ai-left {
+  flex: 1 1 0;
+}
+
+.ai-right {
+  width: 340px;
+  flex: 0 0 340px;
 }
 
 #gemini-response {
@@ -154,6 +166,112 @@ h1 {
   font-size: 1rem;
   color: #333;
   white-space: pre-wrap;
+}
+
+.chat-history {
+  max-height: 800px;
+  overflow: auto;
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+/* Hide the chat history container when it has no messages */
+#chat-history:empty, .chat-history:empty {
+  display: none;
+}
+
+.chat-controls {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.chat-controls textarea {
+  flex: 1;
+  resize: vertical;
+}
+
+.chat-controls button {
+  width: 72px;
+}
+
+/* Modern chat bubbles */
+.chat-history .msg {
+  margin-bottom: 8px;
+  display: block;
+  max-width: 85%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(16,24,40,0.06);
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+
+.chat-history .msg.user {
+  margin-left: auto;
+  background: linear-gradient(180deg,#e8f0fe,#d6e8ff);
+  color: #05264b;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-history .msg.assistant {
+  margin-right: auto;
+  background: #fff;
+  border: 1px solid #e6eefc;
+  color: #07304a;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-controls textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #dbeafe;
+  background: #fcfeff;
+  font-size: 0.95rem;
+  min-height: 48px;
+}
+
+.chat-controls button {
+  background: linear-gradient(180deg,#0078d7,#0064c8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.chat-controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Slight spacing inside the right panel */
+.ai-right { padding-left: 6px; }
+
+/* Location controls styling */
+#location-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+#zip-input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #dbeafe;
+  width: 280px;
+}
+
+#zip-lookup, #use-location {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(180deg,#0078d7,#0064c8);
 }
 
 /* === Responsive Design === */

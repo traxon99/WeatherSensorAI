@@ -11,6 +11,11 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 5173;
 
+// Check if environment variables are loaded
+console.log('Environment check:');
+console.log('- PORT:', PORT);
+console.log('- API Key loaded:', process.env.GEMINI_API_KEY ? 'Yes (length: ' + process.env.GEMINI_API_KEY.length + ')' : 'No');
+
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -34,7 +39,7 @@ app.post('/api/gemini', async (req, res) => {
     console.log('Making request to Gemini API...');
 
     // Get the generative model
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     // Generate content
     const result = await model.generateContent(prompt);

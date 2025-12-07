@@ -8,6 +8,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
+        <!-- Marked (markdown -> HTML) and DOMPurify (sanitize) -->
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
     </head>
 
     
@@ -15,6 +18,12 @@
         <h1>
             WeatherSensorAI
         </h1>
+        <div id="location-controls" style="margin-bottom:18px; width:100%; max-width:1100px; display:flex; gap:8px; align-items:center; justify-content:center;">
+            <input id="zip-input" type="text" placeholder="Enter US ZIP code (or leave blank for location)" style="padding:10px; border-radius:8px; border:1px solid #dbeafe; width:280px;">
+            <button id="zip-lookup" style="padding:10px 14px; border-radius:8px; border:none; background:#0078d7; color:white; cursor:pointer;">Lookup</button>
+            <button id="use-location" style="padding:10px 14px; border-radius:8px; border:none; background:#0064c8; color:white; cursor:pointer;">Use My Location</button>
+            <div id="location-label" style="margin-left:12px; color:white; font-weight:600;"></div>
+        </div>
         <div id="weather-details"> 
             <div id="weather-details-title">
                 <h2 id="weather-details-h2">Weather for your location</h2>
@@ -51,11 +60,22 @@
         </div>
         
         <div id="ai-summary-container">
-            <h2>
-                AI Summary
-            </h2>
-            <div id="gemini-response">
-                <p id="gemini-text-box"></p>
+            <div class="ai-left">
+                <h2>AI Summary</h2>
+                <div id="gemini-response">
+                    <p id="gemini-text-box"></p>
+                </div>
+            </div>
+
+            <div class="ai-right">
+                <h2 style="text-align:left; margin-bottom:8px;">Chat</h2>
+                <div id="chat-container">
+                    <div id="chat-history" class="chat-history"></div>
+                    <div id="chat-controls" class="chat-controls">
+                        <textarea id="chat-input" rows="2" placeholder="Ask about the weather..."></textarea>
+                        <button id="chat-send">Send</button>
+                    </div>
+                </div>
             </div>
         </div>
     
