@@ -249,7 +249,8 @@ This project is part of an academic assignment at the University of Kansas.
 
 ## Contributors
 
-EECS 581 Team Project - University of Kansas
+EECS 581 Team Project, University of Kansas - Manu Redd, Riley England, Jackson Yanek, Evans Chigweshe
+
 
 ## Acknowledgments
 
