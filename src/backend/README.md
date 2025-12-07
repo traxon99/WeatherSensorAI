@@ -20,7 +20,6 @@ cp .env.example .env
 GEMINI_API_KEY=your_actual_api_key_here
 ```
 
-Get your API key from: https://aistudio.google.com/app/apikey
 
 ## Running the Server
 
